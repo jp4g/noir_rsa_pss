@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 clap = "2.33"
 toml = "0.5"
-noir-bignum-paramgen = { version = "0.1.4" }
+noir-bignum-paramgen = { version = "0.1.5" }
 hex = { version = "0.4" }
 rsa = { git = "https://github.com/RustCrypto/RSA" } # from online repo
 rand = { version = "0.8.5" }
@@ -62,11 +62,8 @@ sha3 = { version = "=0.11.0-pre.3", default-features = false, features = [
 generic-array = { version = "1.1.0" }
 typenum = { version = "1.17.0" }
 itoa = { version = "1.0.11" }
-openssl = "0.10.68"
-x509-parser = "0.16.0"
-jsonwebtoken = "9.3.0"
 [features]
-default = ["std", "u64_digit"]
+default = ["std", "pem", "u64_digit"]
 hazmat = []
 getrandom = ["rand_core/getrandom"]
 nightly = ["num-bigint/nightly"]
