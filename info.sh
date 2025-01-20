@@ -1,1 +1,1 @@
-(cd example && nargo compile --force --silence-warnings && bb gates -b ./target/example.json | grep "circuit")
+(cd example_pss && nargo compile --force --silence-warnings && bb gates -b ./target/example_pss.json | grep "circuit")
