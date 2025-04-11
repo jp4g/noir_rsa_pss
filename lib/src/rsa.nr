@@ -741,7 +741,6 @@ fn test_verify_sha256_pss_1964() {
         ],
     };
     assert(verify_sha256_pss(sha256_hash, signature, 4096));
-
 }
 
 #[test]
