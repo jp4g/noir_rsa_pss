@@ -1,4 +1,4 @@
-use bignum::{params::BigNumParams, RuntimeBigNum};
+use bignum::params::BigNumParams;
 use rsa::{rsa::verify_sha256_pss, types::RBN2048};
 
 // Examples of the signature limbs, modulus, and redc params can be generated via
@@ -9,9 +9,9 @@ use rsa::{rsa::verify_sha256_pss, types::RBN2048};
 // data to generate for the Prover.toml file.
 fn main(
     hash: [u8; 32],
-    signature_limbs: [Field; 18],
-    modulus_limbs: [Field; 18],
-    redc_limbs: [Field; 18],
+    signature_limbs: [u128; 18],
+    modulus_limbs: [u128; 18],
+    redc_limbs: [u128; 18],
 ) {
     let has_multiplicative_inverse = false;
     let params: BigNumParams<18, 2048> =
