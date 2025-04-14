@@ -88,7 +88,7 @@ fn test_main() {
         0x26,
     ];
 
-    let hash: [u8; 32] = dep::std::hash::sha256("hello world".as_bytes());
+    let hash: [u8; 32] = sha256::digest("hello world".as_bytes());
 
     main(hash, signature_limbs, modulus_limbs, redc_limbs);
 }

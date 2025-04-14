@@ -163,7 +163,7 @@ pub fn verify_sha256_pss<let NumLimbs: u32, let ModBits: u32>(
     }
 
     // Compute H'
-    let h_prime = dep::std::hash::sha256(m_prime);
+    let h_prime = sha256::digest(m_prime);
 
     // Compare H and H'
     h == h_prime
@@ -229,7 +229,7 @@ fn mgf1_sha256<let SEED_LEN: u32, let MASK_LEN: u32>(seed: [u8; SEED_LEN]) -> [u
 
         // Hash the block
         // First SEED_LEN bytes are the seed, next 4 bytes are the counter
-        hashed = dep::std::hash::sha256_var(block, SEED_LEN as u64 + 4);
+        hashed = sha256::sha256_var(block, SEED_LEN as u64 + 4);
 
         // Copy hashed output to mask
         for j in 0..HASH_LEN {
@@ -245,7 +245,7 @@ fn mgf1_sha256<let SEED_LEN: u32, let MASK_LEN: u32>(seed: [u8; SEED_LEN]) -> [u
 #[test]
 fn test_verify_sha256_pkcs1v15_1024() {
     // Output of `cargo run -- --msg "hello world! test#123" --bits 1024` in the `signature_gen` directory
-    let sha256_hash: [u8; 32] = dep::std::hash::sha256("hello world! test#123".as_bytes());
+    let sha256_hash: [u8; 32] = sha256::digest("hello world! test#123".as_bytes());
     assert(
         sha256_hash
             == [
@@ -301,7 +301,7 @@ fn test_verify_sha256_pkcs1v15_1024() {
 #[test]
 fn test_verify_sha256_pkcs1v15_2048() {
     // Output of `cargo run -- --msg "Hello World! This is Noir-RSA"` in the `signature_gen` directory
-    let sha256_hash: [u8; 32] = dep::std::hash::sha256("Hello World! This is Noir-RSA".as_bytes());
+    let sha256_hash: [u8; 32] = sha256::digest("Hello World! This is Noir-RSA".as_bytes());
     assert(
         sha256_hash
             == [
@@ -383,7 +383,7 @@ fn test_verify_sha256_pkcs1v15_2048() {
 #[test]
 fn test_verify_sha256_pkcs1v15_2048_exponent_3() {
     // Output of `cargo run -- --msg "hello world" -e 3` in the `signature_gen` directory
-    let sha256_hash: [u8; 32] = dep::std::hash::sha256("hello world".as_bytes());
+    let sha256_hash: [u8; 32] = sha256::digest("hello world".as_bytes());
     assert(
         sha256_hash
             == [
@@ -465,7 +465,7 @@ fn test_verify_sha256_pkcs1v15_2048_exponent_3() {
 
 #[test]
 fn test_mgf1_sha256() {
-    let seed: [u8; 32] = dep::std::hash::sha256("Hello World! This is Noir-RSA".as_bytes());
+    let seed: [u8; 32] = sha256::digest("Hello World! This is Noir-RSA".as_bytes());
     let expected_mask: [u8; 32] = [
         106, 93, 232, 46, 236, 203, 51, 228, 103, 104, 145, 29, 197, 74, 26, 194, 135, 200, 40, 232,
         179, 172, 220, 135, 51, 185, 209, 35, 194, 131, 176, 190,
@@ -476,7 +476,7 @@ fn test_mgf1_sha256() {
 
 #[test]
 fn test_verify_sha256_pss_2048() {
-    let sha256_hash: [u8; 32] = dep::std::hash::sha256("Hello World! This is Noir-RSA".as_bytes());
+    let sha256_hash: [u8; 32] = sha256::digest("Hello World! This is Noir-RSA".as_bytes());
 
     let params: BigNumParams<18, 2048> = BigNumParams::new(
         false,
@@ -551,7 +551,7 @@ fn test_verify_sha256_pss_2048() {
 
 #[test]
 fn test_verify_sha256_pss_4096() {
-    let sha256_hash: [u8; 32] = dep::std::hash::sha256("Hello World! This is Noir-RSA".as_bytes());
+    let sha256_hash: [u8; 32] = sha256::digest("Hello World! This is Noir-RSA".as_bytes());
     let params: BigNumParams<35, 4096> = BigNumParams::new(
         false,
         [
@@ -675,7 +675,7 @@ fn test_verify_sha256_pss_4096() {
 // doesnt work yet need better method
 // #[test]
 fn test_verify_sha256_pss_1964() {
-    let sha256_hash: [u8; 32] = dep::std::hash::sha256("Hello World! This is Noir-RSA".as_bytes());
+    let sha256_hash: [u8; 32] = sha256::digest("Hello World! This is Noir-RSA".as_bytes());
     let params: BigNumParams<17, 1964> = BigNumParams::new(
         false,
         [
